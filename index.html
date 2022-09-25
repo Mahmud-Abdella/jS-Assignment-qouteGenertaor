@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quote Generator</title>
+    <link
+      rel="stylesheet"
+      href="https://fontawesome.com/icons/dash?s=solid&f=sharp"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: white;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background-color: rgb(0, 145, 255);
+      }
+      .wrapper {
+        width: 60%;
+        height: 50vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .content {
+        padding: 30px;
+        color: white;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-size: 30px;
+      }
+      .quote {
+        font-size: 30px;
+        text-align: center;
+      }
+      .quote-area {
+        display: flex;
+        justify-content: center;
+      }
+      .quote-area i {
+        font-size: 10px;
+      }
+      .quote-area i:first-child {
+        margin: 3px 10px 0 0;
+      }
+      .quote-area i:last-child {
+        margin: 3px 10px 0 0;
+      }
+      .author {
+        display: flex;
+        margin-top: 20px;
+        margin-left: 10px;
+        justify-content: flex-end;
+      }
+      .author span:first-child {
+        margin: -7px 5px 0 0;
+        font-family: monospace;
+      }
+      button {
+        background-color: rgb(0, 145, 255);
+        width: 25%;
+        height: 4vw;
+        border: 3px solid white;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body class="section">
+    <div class="wrapper">
+      <div class="content">
+        <div quote-area>
+          <i class="fa-solid fa-ditto"></i>
+          <i class="fas fa-quote-left"></i>
+          <p class="quote">
+            A MAN WHO FLIES FROM HIS FEAR MAY FIND THAT HE HAS ONLY TAKEN A
+            SHORTCUT TO MEET IT
+          </p>
+          <i class="fas fa-quote-right"></i>
+          <i class="fa-solid fa-ditto"></i>
+        </div>
+        <div class="author">
+          <i class="fa-sharp fa-solid fa-dash"></i>
+          <span>__</span>
+          <span class="name">SADOR, CHILDREN OF HURIN</span>
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button>SHOW ANOTHER QUOTE</button>
+      </div>
+    </div>
+
+    <script>
+      const quoteText = document.querySelector(".quote");
+      const quoteBtn = document.querySelector("button");
+      const backgrndColor = document.querySelector("body");
+      //   const para = document.querySelector("p");
+      //   para.toUpperCase();
+      function randomQuote() {
+        quoteBtn.classList.add("loading");
+        quoteText.innerText = "Loading Quote....";
+        fetch("https://api.quotable.io/random")
+          .then((res) => res.json())
+          .then((result) => {
+            quoteText.innerText = result.content;
+            authorName.innerText = result.author;
+            quoteBtn.innerText = "Show Another Quote";
+            quoteBtn.classList.remove("loading");
+          });
+      }
+      quoteBtn.addEventListener("click", randomQuote);
+      quoteBtn.addEventListener("click", () => {
+        let color = "#";
+        color += Math.random().toString(16).slice(2, 8);
+        backgrndColor.style.backgroundColor = color;
+        quoteBtn.style.backgroundColor = color;
+      });
+    </script>
+  </body>
+</html>
